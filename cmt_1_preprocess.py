@@ -2,13 +2,11 @@
 # * 코드 파일 이름: cmt_1_preprocess.py
 # * 코드 작성자: 박동연, 강소정, 김유진
 # * 코드 설명: 동영상 강의 해설 파일을 생성하기 위한 전처리 파일 생성
-# * 코드 최종 수정일: 2021/07/28 (박동연)
+# * 코드 최종 수정일: 2021/07/30 (박동연)
 # * 문의 메일: yeon0729@sookmyung.ac.kr
 # """
 
 # 패키지 및 라이브러리 호출
-import imagehash
-import jellyfish
 import cv2
 from skimage.measure import compare_ssim
 
@@ -19,6 +17,7 @@ import datetime
 import pandas as pd
 import re
 import pdfplumber
+from pytesseract import *
 
 import shutil
 import moviepy.editor as mp
@@ -45,12 +44,9 @@ from scenedetect import VideoManager, SceneManager, StatsManager
 from scenedetect.detectors import ContentDetector
 from scenedetect.scene_manager import save_images, write_scene_list_html
 
-# pdf to text를 위한 라이브러리 호출
-from pdfminer.high_level import extract_pages
-from pdfminer.layout import LTTextContainer
 
 # 경로 설정 (경로 내에 한글 디렉토리 및 한글 파일이 있으면 제대로 동작하지 않음 유의 !!!!!)
-default_path = "./UIUX/"
+default_path = "UIUX/"
 pdf_path = default_path + "lecture_doc.pdf"
 video_path = default_path + "lecture_video.mp4"
 audio_path = default_path + "lecture_audio.mp3"
@@ -427,9 +423,57 @@ def captureFiltering():
 
 
 # 동영상 캡처 이미지와 원본 슬라이드 이미지 간 유사도를 계산하는 함수
-def orbCompare():
-    print("\n[알맞는 슬라이드 찾기 시작] 캡쳐 화면과 슬라이드 이미지의 유사도 계산을 시작합니다")
+def orbCompare(capture):
+    print("\n[ORB 계산 시작] 캡쳐 화면과 슬라이드 이미지의 ORB 유사도 계산을 시작합니다")
 
+    slideList = os.listdir(slide_path)
+    slideList = [slide_file for slide_file in slideList if slide_file.endswith(".jpg")]  # jpg로 끝나는 것만 가져오기
+    slideList.sort()
+    print(">>> 슬라이드 파일 목록:", slideList)
+
+    orb = cv2.ORB_create()
+
+    capture_img = cv2.imread(capture_FA_path + capture, None)
+    kp_c, des_c = orb.detectAndCompute(capture_img, None)
+
+    match_list = []
+
+    for slide in slideList:
+        slide_img = cv2.imread(slide_path + slide, None)
+        kp_s, des_s = orb.detectAndCompute(slide_img, None)
+
+        bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+
+        matches = bf.match(des_c, des_s)
+        matches = sorted(matches, key=lambda x: x.distance)
+
+        print(">>>", capture, "vs", slide, ":", len(matches))
+        match_list.append(len(matches))
+
+    print("*" * 50)
+    slide_max_idx = match_list.index(max(match_list))
+    result = ">>> " + str(capture) + " - " + str(slideList[slide_max_idx]) + " : " + str(match_list[slide_max_idx])
+    print(result)
+    print("*" * 50)
+    print("[ORB 계산 종료] 캡쳐 화면과 슬라이드 이미지의 ORB 유사도 계산을 종료합니다\n")
+
+    return slide_max_idx
+
+
+# 텍스트 자카드 유사도 판별 함수
+def JaccardSimilarity(inp1, inp2):
+    list_inp1 = inp1.split()
+    list_inp2 = inp2.split()
+    mom = set(list_inp1).union(set(list_inp2))
+    son = set(list_inp1).intersection(set(list_inp2))
+    #print(mom)
+    #print(son)
+    #print("\n")
+    return len(son)/len(mom)
+
+
+# 텍스트 유사도 + ORB 유사도를 사용하여 알맞는 슬라이드를 찾아주는 함수
+def txtSimCompare():
     slideList = os.listdir(slide_path)
     slideList = [slide_file for slide_file in slideList if slide_file.endswith(".jpg")]  # jpg로 끝나는 것만 가져오기
     slideList.sort()
@@ -440,42 +484,43 @@ def orbCompare():
     capture_FA_List.sort()
     print(">>> 캡쳐 파일 목록:", capture_FA_List)
 
-    orb = cv2.ORB_create()
+    txtFile = open(default_path + "OCRTXT_result.txt", "w", -1, "utf-8")
 
-    txtFile = open(default_path + "OCR_result.txt", "w", -1, "utf-8")  # 번역한 내용을 저장할 텍스트 파일
-    selected_slide_list = []
-
+    match_list = []
+    answer = 0
     for capture in capture_FA_List:
+        result_list = []
+        jpgtotext = pytesseract.image_to_string(Image.open(capture_FA_path + capture), lang='kor+eng')
 
-        capture_img = cv2.imread(capture_FA_path + capture, None)
-        kp_c, des_c = orb.detectAndCompute(capture_img, None)
+        Pdf = pdfplumber.open(pdf_path)
 
-        match_list = []
-        for slide in slideList:
-            slide_img = cv2.imread(slide_path + slide, None)
-            kp_s, des_s = orb.detectAndCompute(slide_img, None)
+        for page in Pdf.pages:
 
-            bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck = True)
+            text = str(page.extract_text())
 
-            matches = bf.match(des_c, des_s)
-            matches = sorted(matches, key=lambda x:x.distance)
+            result = JaccardSimilarity(jpgtotext, text) # 선 텍스트 유사도 비교
+            result_list.append(result)
+            print(capture, "vs", str(page), ":", str(result))
 
-            print(">>>", capture, "vs", slide, ":", len(matches))
-            match_list.append(len(matches))
+        if max(result_list) <= 0.25: # 텍스트 유사도 비교가 부정확할 시 orb 사용
+            page_num = orbCompare(capture) + 1
+        else:
+            page_num = result_list.index(max(result_list)) + 1
 
-        print("*" * 50)
-        max_idx = match_list.index(max(match_list))
-        result = ">>> " + str(capture) + " - " + str(slideList[max_idx]) + " : " + str(match_list[max_idx])
-        print(result)
-        print("*" * 50)
-
-        txtFile.write(result + "\n")
-        selected_slide_list.append(slideList[max_idx])
+        match_list.append(page_num)
+        answer = ">>> " + str(capture) + " - Page " + str(page_num) + " : " + str(max(result_list)) + "\n"
+        print(answer)
+        txtFile.write(answer)
 
     txtFile.close()
-    print("[알맞는 슬라이드 찾기 종료] 캡쳐 화면과 슬라이드 이미지의 유사도 계산을 종료합니다\n")
-    
-    return selected_slide_list
+
+    print("*****", match_list)
+
+    final = []
+    for i in match_list:
+        final.append("slide_" + set_Filenum_of_Name(i) + ".jpg")
+
+    return final
 
 
 # 텍스트 파일을 기반으로 TTS 음성파일을 생성하는 함수
@@ -575,19 +620,19 @@ if __name__ == '__main__':
 
     # 슬라이드와 캡처본 간 이미지 유사도 계산
     tmp_start = time.time()
-    tf_timeline_idx = captureFiltering() #캡처 이미지 필터링
+    tf_timeline_idx = captureFiltering() #캡처 이미지 필터링 # PART 1
     tmp_sec = time.time() - tmp_start
     tmp_times = str(datetime.timedelta(seconds=tmp_sec)).split(".")
 
     tf_timeline_list = []
     for i, idx_val in enumerate(tf_timeline_idx):
-        tf_timeline_list.append(captured_timeline_list[idx_val])
+        tf_timeline_list.append(captured_timeline_list[idx_val]) # PART 1
         print("[" + str(i + 1) + "번째 슬라이드 등장시간]", int(captured_timeline_list[idx_val] / 60), "분",
               round(captured_timeline_list[idx_val] % 60), "초")
 
-    df['time'] = tf_timeline_list
+    df['time'] = tf_timeline_list # PART 1
 
-    selected_slide_list = orbCompare()
+    selected_slide_list = txtSimCompare() # PART 2
     df['slide'] = selected_slide_list# 해당 전환 시점에 등장한 슬라이드 기입
 
     df.to_csv(save_path, mode='w')
