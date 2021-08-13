@@ -14,12 +14,16 @@
         }
 
         body {
-            background-color: #F5F5F5;
+            background-color: #266CBF;
+            text-align: center;
         }
 
         form {
-            background-color: #FFFFFF;
             padding: 25px;
+        }
+
+        input {
+            margin: 10px;
         }
 
         table {
@@ -33,16 +37,28 @@
         table tr td {
             padding-top: 15px;            
         }
+        #form_box {
+            background-color: white;
+            width: 700px;
+            border-radius: 50px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
-    <form action="{% url 'upload:uploadFile' %}" method="POST" enctype="multipart/form-data">
-        <input type="text" name="fileTitle" placeholder="Enter a title">
-        <input type="file" name="videoFile">
-        <input type="file" name="docFile">
-        {% csrf_token %}
-        <input type="submit" value="Upload">
-    </form>
+    <h1 style="color: white;">강의 및 강의자료 업로드</h1>
+    <div id="form_box">
+        <form action="{% url 'upload:uploadFile' %}" method="POST" enctype="multipart/form-data">
+            <input type="text" name="fileTitle" placeholder="Enter a title"> <br/>
+            <span>강의영상(.mp4) 선택: </span><input type="file" name="videoFile"> <br/>
+            <span>강의자료(.pdf) 선택: </span><input type="file" name="docFile"> <br/>
+            {% csrf_token %}
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+    <br/>
+
+    <h1 style="color: white;">업로드 된 강의 목록</h1>
     <table>
         <tr>
             <th>ID</th>
