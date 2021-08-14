@@ -1,0 +1,231 @@
+<style>
+  form {
+    position: absolute;
+    left: 850px;
+    top:100px;
+    width: 150px;
+    height: 70px;
+  }
+#fruits {
+    position: absolute;
+    left: 850px;
+    top:200px;
+    width: 150px;
+    height: 100px;
+  }
+  #bt {
+    padding: 0;
+  border: none;
+  background: none;
+  }
+  video{
+    position: absolute;
+    left: 20px;
+    top:50px;
+    width: 800px;
+    height: 600px;
+  }
+  #butt{
+    position: absolute;
+    left: 20px;
+    top:680px;
+    width: 600px;
+    height: 500px;
+  }
+  #prevSlide{
+    margin-right:10px
+  }
+  #prevPlay{
+    margin-right:10px
+  }
+  #videoPlay{
+    margin-right:10px
+  }
+  #videoStop{
+    margin-right:10px
+  }
+  #nextPlay{
+    margin-right:10px
+  }
+  #nextSlide{
+    margin-right:10px
+  }
+
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+<title>title</title>
+<!-- Bootstrap cdn 설정 -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+
+  <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+  <input type="file" id="id_file_upload" onchange="upload(event)"/>
+
+  <ul id='fruits' tabindex="1"></ul>
+
+  <form method="get" action="form-action.html">
+    <label><input type="checkbox" name="option" value="전체 설명 생략"> 전체 설명 생략</label>
+</form>
+<!-- audio와 video 설정 -->
+<video src="C:\Users\SM-PC\Desktop\Commentor\UIUX\lecture_audio.mp3" id="myVideo" width='450' height='360'
+poster='C:\Users\SM-PC\Desktop\Commentor\UIUX\capture_FA\003.jpg' controls autoplay loop preload></video>
+<br />
+
+<class id=butt>
+<button id="prevSlide">이전 슬라이드</button>
+<button id="prevPlay">6초 전</button>
+<button id="videoPlay">재생</button>
+<button id="videoStop">일시정지</button>
+<button id="nextPlay">6초 후</button>
+<button id="nextSlide">다음 슬라이드</button>
+</class>
+
+
+
+<script>
+// video 오브젝트를 취득함.
+var video = document.getElementById("myVideo");
+
+var vid = document.getElementById("myVideo");
+var arr = new Array();
+
+//6초 전 클릭
+$("#prevPlay").on("click", function() {
+video.currentTime-=6;
+});
+
+//재생 클릭
+$("#videoPlay").on("click", function() {
+video.play();
+});
+
+//일시정지 클릭
+$("#videoStop").on("click", function() {
+video.pause();
+});
+
+//6초 후 클릭
+$("#nextPlay").on("click", function() {
+video.currentTime+=6;
+});
+
+//이전 슬라이드
+$("#prevSlide").on("click", function() {
+  var time_cur = video.currentTime;
+  time_cur *= 1;
+  for(k = 0; k < arr.length-1; k++) {
+
+    if(arr[k]<= time_cur && time_cur < arr[k+1]){
+      video.currentTime = arr[k];
+      break;
+    }
+    if(time_cur > arr[arr.length-1]){
+      video.currentTime = arr[arr.length-1];
+      break;
+    }
+  }
+});
+
+//다음 슬라이드
+$("#nextSlide").on("click", function() {
+  var time_cur = video.currentTime;
+  time_cur *= 1;
+  //console.log(time_cur);
+  //console.log(arr.length);
+  //console.log(video.duration);
+  for(k = 0; k < arr.length-1; k++) {
+
+    if(arr[k]<= time_cur && time_cur < arr[k+1]){
+      video.currentTime = arr[k+1];
+      console.log(video.currentTime);
+      break;
+    }
+    if(time_cur > arr[arr.length-1]){
+      video.currentTime = video.duration;
+      break;
+    }
+  }
+});
+
+function getCurTime() {
+    alert(vid.currentTime);
+}
+
+function upload(event){
+  var input = event.target;
+  var reader = new FileReader();
+  var objKeyArr;
+
+
+  reader.onload = function(){
+    var fdata = reader.result;
+    var read_buffer = XLSX.read(fdata, {type : 'binary'});
+
+    read_buffer.SheetNames.forEach(function(sheetName){
+      var rowdata =XLSX.utils.sheet_to_json(read_buffer.Sheets[sheetName]);
+      //console.log(JSON.stringify(rowdata));
+      objKeyArr = Object.keys(rowdata);
+
+      for(C = 0; C < objKeyArr.length; ++C) {
+        console.log("time : "+ JSON.stringify(rowdata[C].time));
+        arr[C] = JSON.stringify(rowdata[C].time);
+      }
+      for(B = 0; B < objKeyArr.length; ++B) {
+
+        const addValue = B;
+
+        // 2. 추가할 li element 생성
+        // 2-1. 추가할 li element 생성
+        const li = document.createElement("li");
+
+        // 2-2. li에 id 속성 추가
+        li.setAttribute('id',addValue);
+        li.setAttribute('tabindex', addValue+2);
+        li.setAttribute('onkeypress',"JavaScript:press(this.form)")
+
+        // 2-3. li에 text node 추가
+        const textNode = document.createTextNode(B+1+"번 슬라이드");
+        li.appendChild(textNode);
+
+        // 3. 생성된 li를 ol에 추가
+        document
+          .getElementById('fruits')
+          .appendChild(li);
+
+      }
+    })
+    // var u_list = document.getElementById('3');
+    // console.log(u_list);
+  //  $(document).ready(function(){
+      //$('li').onclick(function(index){
+      $('li').on("click", function() {
+        console.log($('li').index(this)+1);
+        var idd= $('li').index(this)+1;
+
+        for(A = 0; A < objKeyArr.length; ++A)
+        {
+          if(idd == A+1)
+          {
+            tt = Number(arr[A]);
+            tt *=1;
+            vid.currentTime=tt;
+          }
+        }
+
+
+      });
+  //  });
+
+
+  };
+  reader.readAsBinaryString(input.files[0]);
+
+}
+
+</script>
+</body>
+</html>

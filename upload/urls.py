@@ -7,6 +7,7 @@ app_name = "upload"
 
 urlpatterns = [
     path("", views.upload_files, name="upload_files"),
+
 ]
 
 if settings.DEBUG: 

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'onlineclass.apps.OnlineclassConfig',
     'common.apps.CommonConfig',
     'upload.apps.UploadConfig',
     'django.contrib.admin',

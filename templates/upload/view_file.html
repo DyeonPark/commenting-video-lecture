@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Django File Upload</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Nanum+Myeongjo&display=swap&subset=korean" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
@@ -37,11 +38,32 @@
         table tr td {
             padding-top: 15px;            
         }
-        #form_box {
+        .class_box {
             background-color: white;
-            width: 700px;
-            border-radius: 50px;
+            width: 100%;
+            text-align: left;
+            border-radius: 15px;
             margin: 0 auto;
+            margin-bottom: 10px;
+            font-family: 'Nanum Gothic', sans-serif;
+            font-size: 20pt;
+        }
+        .class_inner_box {
+            padding: 10px;
+        }
+        .b01_simple_rollover {
+            color: #000000;
+            border: #000000 solid 1px;
+            padding: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            background-color: #ffffff;
+            font-size: 15pt;
+        }
+
+        .b01_simple_rollover:hover {
+            color: #ffffff;
+            background-color: #145097;
         }
     </style>
 </head>
@@ -49,23 +71,55 @@
     <h1 style="color: white;">강의실</h1>
 
     <h1 style="color: white;">업로드 된 강의 목록</h1>
-    <table>
-        <tr>
-            <th>강의명</th>
-            <th>강의 동영상 재생</th>
-            <th>강의 자료 다운로드</th>
-            <th>강의자료 해설 파일 다운로드</th>
-            <th>해설 오디오파일 재생</th>
-        </tr>
-        {% for file in files %}
-            <tr>
-                <td>{{ file.title }}</td>
-                <td>{{ file.title }}</td>
-                <td>{{ file.videoFile.url }}</td>
-                <td>{{ file.docFile.url }}</td>
-                <td>{{ file.dateTimeOfUpload }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+{#    <table>#}
+{#        <tr>#}
+{#            <th>강의명</th>#}
+{#            <th>강의 동영상 재생</th>#}
+{#            <th>강의 자료 다운로드</th>#}
+{#            <th>강의자료 해설 파일 다운로드</th>#}
+{#            <th>해설 오디오파일 재생</th>#}
+{#        </tr>#}
+{#        {% for file in files %}#}
+{#            <tr>#}
+{#                <td>{{ file.title }}</td>#}
+{#                <td>{{ file.title }}</td>#}
+{#                <td>{{ file.videoFile.url }}</td>#}
+{#                <td>{{ file.docFile.url }}</td>#}
+{#                <td>{{ file.dateTimeOfUpload }}</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#    </table>#}
+
+    {% for file in files %}
+        <div class="class_box">
+
+            <div class="class_inner_box">
+                <span style="font-size: 30pt; color: #145097; padding-left: 10px; font-weight: bolder">{{ file.title }}</span>
+
+                <input type="button" class="button_base b01_simple_rollover" onclick=";" value="강의 동영상 재생">
+                <input type="button" class="button_base b01_simple_rollover" onclick=";" value="강의 자료 다운로드">
+            </div>
+
+            <div class="class_inner_box">
+                <span style="padding-left: 10px;">{{ file.dateTimeOfUpload }}</span>
+                <input type="button" class="button_base b01_simple_rollover" onclick="commenter_call();" value="해설 오디오 파일 재생">
+                <input type="button" class="button_base b01_simple_rollover" onclick="" value="강의자료 해설 파일 다운로드">
+            </div>
+
+        </div>
+    {% endfor %}
+
+    <!-- 자바스크립트 함수 선언-->
+    <script type="text/javascript">
+
+        // 코멘터 프로그램(html)을 호출하는 함수
+        function commenter_call() {
+            window.open(
+                "commentor.html",
+                "코멘터 프로그램 - 해설 오디오 파일 재생",
+                "scrollbars = no, resizable = yes"
+            );
+        }
+    </script>
 </body>
 </html>

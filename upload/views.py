@@ -44,7 +44,6 @@ def upload_files(request):
 
         # 학생 그룹에 포함될 경우 렌더링
         elif group == "student_group":
-            print(">>>>>>>>>>>>>>>>>>>>>>", group)
 
             template = loader.get_template('upload/view_file.html')
             documents = Document.objects.all()
