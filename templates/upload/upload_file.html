@@ -17,7 +17,7 @@
         }
 
         html, body {
-            background-color: #F0F0F0;
+            background-color: #FBFAFE;
             text-align: center;
             width: 100%;
             height: 635px;
@@ -33,11 +33,12 @@
         }
 
         table {
-            width: 100%; 
+            margin: 0 auto;
+            width: 95%;
             text-align: center;
             margin-top: 25px;
             padding: 25px;
-            background-color: #FFFFFF;
+            font-size: 10pt;
         }
 
         table tr td {
@@ -163,10 +164,53 @@
         }
 
         section {
+            width: 70%;
             float: right;
+            background-color: #FBFAFE;
+        }
+
+        section h1 {
+            margin-top: 60px;
+            margin-bottom: 20px;
+            color: #6c5ce7;
+            text-align: left;
+            font-weight: bolder;
+            font-size: 20pt;
+        }
+
+        .meter {
+            height: 20px;
+            width: 95%;
+            background: #C6C6C6;
+            border-radius: 25px;
+            margin: 10px;
+            box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .meter > span {
+            display: block;
+            height: 100%;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            background-color: #6c5ce7;
+            background-image: linear-gradient(to right, #6c5ce7, #81ecec);
+            box-shadow: inset 0 2px 9px  rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section h3 {
+            margin-top: 10px;
+            color: #474747;
+            text-align: center;
+            font-weight: normal;
+            font-size: 12pt;
         }
 
         footer {
+            background-color: #F0F0F0;
             clear:both;
         }
 
@@ -202,7 +246,16 @@
     </aside>
 
     <section>
-        <h1 style="color: white;">업로드 된 강의 목록</h1>
+        <h1>Task Loading</h1>
+
+        <div class="meter">
+            <span style="width: 25%"></span>
+        </div>
+
+        <h3>진행상태 25% : 영상의 전환점을 찾고있습니다</h3>
+
+        <h1>Lecture list uploaded to server</h1>
+
         <table>
             <tr>
                 <th>ID</th>
