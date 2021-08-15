@@ -5,17 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Django File Upload</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
         * {
-            font-family: "Roboto";
+            font-family: sans-serif;
         }
 
-        body {
-            background-color: #266CBF;
+        html, body {
+            background-color: #F0F0F0;
             text-align: center;
+            width: 100%;
+            height: 635px;
+            margin: 0px;
         }
 
         form {
@@ -37,45 +43,189 @@
         table tr td {
             padding-top: 15px;            
         }
-        #form_box {
-            background-color: white;
-            width: 700px;
-            border-radius: 50px;
+
+        .navbar{
+            background: linear-gradient(to right, #6c5ce7, #81ecec);
+        }
+
+        .navbar a{
+            color: white;
+            font-size: 20pt;
+            font-weight: bolder;
+        }
+
+        .navbar ul{
+            padding: 0px;
+            margin: 0px;
+            display: flex;
+        }
+
+        .navbar li{
+            list-style:none;
+            padding:0px;
+            padding-left: 15px;
+            margin: 0px;
+        }
+
+        #username_design {
+            font-size: 15pt;
+            font-weight: normal;
+        }
+
+        #logout_design{
+            display:inline-block;
+            text-align:center;
+            vertical-align: center;
+            width: 100px;
+            height: 35px;
+            background-color: #F0F0F0;
+            color: dimgrey;
+            border-radius: 15px;
+            border: 0;
+            outline: 0;
+            font-size: 10pt;
+        }
+
+        aside {
+            width: 30%;
+            height: 100%;
+            float: left;
+            background-color: #FBFAFE;
             margin: 0 auto;
         }
+
+        .form_box {
+            display: inline-block;
+            width: 80%;
+            height: 80%;
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 15px;
+            margin: 0 auto;
+            margin-top: 60px;
+            box-shadow: 5px 5px 10px 5px #ECE8FC;
+        }
+
+        #form_title {
+            width: 100%;
+            height: 100px;
+            color: white;
+            background-color: #6c5ce7;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            display: table;
+            text-align: center;
+        }
+
+        #form_inner_box {
+            margin: 0 auto;
+            width: 100%;
+            text-align: left;
+            border: #1b1e21;
+        }
+
+        .form_text {
+            font-weight: bolder;
+            font-size: 10pt;
+            color: #6c5ce7;
+            margin-top: 10px;
+        }
+
+        #form_inner_box input {
+            margin-left: 0px;
+        }
+
+        .text_input {
+            padding: 5px;
+            border-color: #E5E5E5;
+            border-style: dashed;
+            border-radius: 10px;
+        }
+
+        #submit_bnt {
+            width: 50%;
+            height: 50px;
+            border-radius: 30px;
+            color: white;
+            background-color: #6c5ce7;
+            border: 0;
+            outline: 0;
+            font-weight: bolder;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 5px 5px 10px 5px #ECE8FC;
+        }
+
+        aside h1 {
+            text-align: center;
+            color: white;
+            font-weight: bolder;
+        }
+
+        section {
+            float: right;
+        }
+
+        footer {
+            clear:both;
+        }
+
     </style>
 </head>
 <body>
-    <h1 style="color: white;">강의 및 강의자료 업로드</h1>
-    <div id="form_box">
-        <form action="{% url 'upload:upload_files' %}" method="POST" enctype="multipart/form-data">
-            <input type="text" name="fileTitle" placeholder="Enter a title"> <br/>
-            <span>강의영상(.mp4) 선택: </span><input type="file" name="videoFile"> <br/>
-            <span>강의자료(.pdf) 선택: </span><input type="file" name="docFile"> <br/>
-            {% csrf_token %}
-            <input type="submit" value="업로드하기">
-        </form>
-    </div>
-    <br/>
+    <nav class="navbar">
+        <a class="navbar-brand" href="{% url 'upload:upload_files' %}">SNOWBOARD</a>
+        <ul>
+            <li><a id="username_design" href="">Welcome, {{ user.username }} !</a></li>
+            <li><button id="logout_design">LOGOUT</button></li>
+        </ul>
+    </nav>
 
-    <h1 style="color: white;">업로드 된 강의 목록</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Video File Path</th>
-            <th>Doc File Path</th>
-            <th>Upload Date & Time</th>
-        </tr>
-        {% for file in files %}
+    <aside>
+        <div class="form_box">
+            <div id="form_title">
+                <div style="padding: 10px; font-size: 15pt; font-weight: bolder; text-align: center; display: table-cell; vertical-align: middle;">Submit a lecture file</div>
+            </div>
+            <form action="{% url 'upload:upload_files' %}" method="POST" enctype="multipart/form-data">
+                <div id="form_inner_box">
+                    <div class="form_text">Lecture Title</div>
+                    <input class="text_input" type="text" name="fileTitle" placeholder="Enter a title">
+                    <div class="form_text">Choose Lecture Video(.mp4)</div>
+                    <input class="text_input" type="file" name="videoFile">
+                    <div class="form_text">Choose Lecture Material(.pdf)</div>
+                    <input class="text_input" type="file" name="docFile">
+                    {% csrf_token %}
+                </div>
+                <input id="submit_bnt" type="submit" value="Upload">
+            </form>
+        </div>
+    </aside>
+
+    <section>
+        <h1 style="color: white;">업로드 된 강의 목록</h1>
+        <table>
             <tr>
-                <td>{{ file.id }}</td>
-                <td>{{ file.title }}</td>
-                <td>{{ file.videoFile.url }}</td>
-                <td>{{ file.docFile.url }}</td>
-                <td>{{ file.dateTimeOfUpload }}</td>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Video File Path</th>
+                <th>Doc File Path</th>
+                <th>Upload Date & Time</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for file in files %}
+                <tr>
+                    <td>{{ file.id }}</td>
+                    <td>{{ file.title }}</td>
+                    <td>{{ file.videoFile.url }}</td>
+                    <td>{{ file.docFile.url }}</td>
+                    <td>{{ file.dateTimeOfUpload }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <footer>
+        <p>Copyright © 2021 Team Commentor</p>
+    </footer>
+
 </body>
 </html>

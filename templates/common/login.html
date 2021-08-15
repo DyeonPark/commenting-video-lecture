@@ -11,25 +11,26 @@
 		}
 
 		body {
-		  background-color: #34495e;
+		  background: linear-gradient(to right,#81ecec,#6c5ce7,#81ecec);
 		}
 
 		.loginForm {
 		  position:absolute;
 		  width:300px;
-		  height:400px;
+		  height:350px;
 		  padding: 30px;
 		  background-color:#FFFFFF;
 		  text-align:center;
 		  top:50%;
 		  left:50%;
-		  transform: translate(-50%,-50%);
+		  transform: translate(-50%,-35%);
 		  border-radius: 15px;
 		}
 
 		.loginForm h2{
-		  text-align: center;
-		  margin: 30px;
+            color: #3D3D3D;
+            text-align: center;
+            margin: 10px;
 		}
 
 		.idForm{
@@ -89,10 +90,28 @@
 		.bottomText {
 		  text-align: center;
 		}
+
+        #title {
+            color: white;
+            text-align: center;
+            font-size: 40pt;
+            margin-top:35px;
+        }
+
+        #subtitle {
+            color: white;
+            text-align: center;
+            font-size: 15pt;
+        }
+
     </style>
   </head>
 
   <body width="100%" height="100%">
+
+    <br/>
+    <h1 id="title">SNOWBOARD</h1>
+    <h3 id="subtitle">with commentor service</h3>
 
   	<!-- 로그인 폼 시작 -->
     <form action="{% url 'common:login' %}" method="post" class="loginForm">
