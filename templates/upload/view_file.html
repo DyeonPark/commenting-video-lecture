@@ -67,9 +67,60 @@
             color: #ffffff;
             background-color: #145097;
         }
+
+        .navbar{
+            background: linear-gradient(to right, #6c5ce7, #81ecec);
+        }
+
+        .navbar a{
+            color: white;
+            font-size: 20pt;
+            font-weight: bolder;
+        }
+
+        .navbar ul{
+            padding: 0px;
+            margin: 0px;
+            display: flex;
+        }
+
+        .navbar li{
+            list-style:none;
+            padding:0px;
+            padding-left: 15px;
+            margin: 0px;
+        }
+
+        #username_design {
+            font-size: 15pt;
+            font-weight: normal;
+        }
+
+        #logout_design{
+            display:inline-block;
+            text-align:center;
+            vertical-align: center;
+            width: 100px;
+            height: 35px;
+            background-color: #F0F0F0;
+            color: dimgrey;
+            border-radius: 15px;
+            border: 0;
+            outline: 0;
+            font-size: 10pt;
+        }
+
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="{% url 'upload:upload_files' %}">SNOWBOARD</a>
+        <ul>
+            <li><a id="username_design" href="">Welcome, {{ user.username }} !</a></li>
+            <li><button id="logout_design" onclick = "location.href = '{% url 'common:login' %}' ">LOGOUT</button></li>
+        </ul>
+    </nav>
+
     <h1 style="color: white;">강의실</h1>
 
     <h1 style="color: white;">업로드 된 강의 목록</h1>

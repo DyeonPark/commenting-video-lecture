@@ -221,7 +221,7 @@
         <a class="navbar-brand" href="{% url 'upload:upload_files' %}">SNOWBOARD</a>
         <ul>
             <li><a id="username_design" href="">Welcome, {{ user.username }} !</a></li>
-            <li><button id="logout_design">LOGOUT</button></li>
+            <li><button id="logout_design" onclick = "location.href = '{% url 'common:login' %}' ">LOGOUT</button></li>
         </ul>
     </nav>
 

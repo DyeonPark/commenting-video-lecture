@@ -132,6 +132,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 로그인 성공 후 이동하는 URL
 LOGIN_REDIRECT_URL = '/upload/'
 
+# 로그아웃 성공 후 이동하는 URL
+LOGOUT_REDIRECT_URL = '/common/login/'
+
 # 미디어파일 업로드 시 저장되는 경로
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
