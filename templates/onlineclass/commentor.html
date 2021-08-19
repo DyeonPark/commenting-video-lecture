@@ -75,8 +75,7 @@
 
     <h1>imgfile</h1>
     <!-- audio와 video 설정 -->
-    <video src={{ helper.helper_audio.url }} id="myVideo" width='450' height='360'
-    poster={{ imgfile }} controls autoplay loop preload></video>
+    <video src={{ helper.helper_audio.url }} id="myVideo" width='450' height='360' controls autoplay loop preload></video>
     <br />
 
     <class id=butt>
@@ -87,8 +86,6 @@
         <button id="nextPlay">6초 후</button>
         <button id="nextSlide">다음 슬라이드</button>
     </class>
-
-
 
     <script>
     // video 오브젝트를 취득함.
@@ -138,9 +135,7 @@
     $("#nextSlide").on("click", function() {
       var time_cur = video.currentTime;
       time_cur *= 1;
-      //console.log(time_cur);
-      //console.log(arr.length);
-      //console.log(video.duration);
+
       for(k = 0; k < arr.length-1; k++) {
 
         if(arr[k]<= time_cur && time_cur < arr[k+1]){
@@ -219,7 +214,7 @@
 
       };
 
-      reader.readAsBinaryString(input.files[0]);
+      reader.readAsBinaryString({{ helper.helper_csv.url }});
 
     }
 

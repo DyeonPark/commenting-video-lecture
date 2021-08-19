@@ -1,11 +1,13 @@
-import os
 from upload.models import Document
-from onlineclass.models import Helper, ImageCapture
+from onlineclass.models import Helper
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+
 from upload.cmt_1_preprocess import execute_preprocess
 from upload.cmt_2_mix import execute_mix
+
 import time
 
 
@@ -49,37 +51,24 @@ def upload_files(request):
 
                 helper = Helper.objects.create(
                     doc_id=document,
-                    helper_audio=path + "lecture_audio.mp3",
-                    helper_txt=path + "txt\\0001.txt",
+                    helper_audio=path + "mix\\mix.mp3",
                     helper_csv=path + "transform_timeline_result.csv"
                 )
 
-                img_list = os.listdir(path + "capture_FA\\")
-                img_list.sort()
-                print(img_list)
-
-                for img in img_list:
-                    ImageCapture.objects.create(
-                        helper_id=helper,
-                        img_file=path + "capture_FA\\" + img
-                    )
-
                 documents = Document.objects.all()
+
                 progress = 100
-                # servicetime = 'hello'
                 return render(request, "upload/upload_file.html", context={
                     "files": documents,
                     "sertime": servicetime * 10,
                     "progress_num": progress
-                    # "sertime" : 3440,
-                    # 'user_name' : name
                 })
 
             else:
                 documents = Document.objects.all()
                 return render(request, "upload/upload_file.html", context={
                     "files": documents,
-                    "sertime": 2430,
+                    "sertime": 5000,
                     "progress_num": 0
                 })
 
@@ -89,8 +78,10 @@ def upload_files(request):
             template = loader.get_template('upload/view_file.html')
             documents = Document.objects.all()
             servicetime = time.time()
+
             context = {
                 "files": documents,
                 "sertime": servicetime
             }
+
             return HttpResponse(template.render(context, request))

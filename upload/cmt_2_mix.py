@@ -15,7 +15,11 @@ from pydub import AudioSegment
 import os
 import re
 
+from upload.models import Document
+from onlineclass.models import Helper
+
 pdf2image_module_path = "data/Release-21.03.0/poppler-21.03.0/Library/bin/"
+
 
 # 의도한바와 같이 정렬될 수 있도록 파일번호 수정하여 반환하는 함수 (최대 9999장까지 가능)
 def set_Filenum_of_Name(filenum):
@@ -85,9 +89,10 @@ def mix(tts_path, lec_path, save_path, default_path, mix_path):
         print('Error: Creating directory. ' + mix_path)  # 디렉토리 생성 오류
 
     # simple export
-    file_handle = combined.export(mix_path + "mix.mp3", format="mp3")
+    combined.export(mix_path + "mix.mp3", format="mp3")
 
     print("[lec과 tts 병합 종료] 원본 mp3파일과 TTS mp3파일 병합을 종료합니다\n")
+
 
 # 메인함수
 def execute_mix(default_path):

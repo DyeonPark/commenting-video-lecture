@@ -278,27 +278,15 @@
     <section>
         <h1>Task Loading</h1>
 
-        {% comment %} <div class="meter">
-            <span id="progress" style="width: 0%"></span>
-        </div> {% endcomment %}
-
         <div id="myProgress">
         <div id="myBar">
             <div id="label">{{progress_num}}%</div>
         </div>
         </div>
 
-        {% comment %} <div class="myProgress">
-        <div class="myBar"></div>
-        <div class="progress progressNow"></div>
-        <div class="label">0 %</div>
-		</div> {% endcomment %}
-
         <h3 id="pro_text">진행상태 {{progress_num}}%</h3>
         <p>{{sertime}}</p>
         <p>{{user_name}}</p>
-
-        {% comment %} <button onclick="move()">Click Me</button>  {% endcomment %}
 
         <h1>Lecture list uploaded to server</h1>
 
@@ -370,47 +358,6 @@
         }
     }
 
-    {% comment %} function move() {
-        console.log("click Time : " + new Date);
-
-			var form = $("#file_form")[0];
-			var formData = new FormData(form);
-			$.ajax({
-				type: "POST",
-				enctype: 'multipart/form-data',
-				url: "{% url 'upload:upload_files' %}",
-				data: formData,
-				processData: false,
-				contentType: false,
-				cache: false,
-				xhr: function(){
-					var xhr = $.ajaxSettings.xhr();
-					xhr.upload.onprogress = function(e){
-						var per = e.loaded * 100 / e.total;
-						progressBar(per);
-					};
-					return xhr;
-				},
-				success: function (data) {
-					console.log("SUCCESS : ", data);
-				},
-				error: function (e) {
-					console.log("ERROR : ", e);
-				}
-			});
-    }
-
-    function progressBar(per){
-        var elem = document.getElementById("myBar");
-        var pro_text = document.getElementById("pro_text");
-
-		if(per > 55){
-            $(".label").css("color", "#000");
-		}
-		per = per.toFixed(1);
-		$(".label").text(per+" %");
-		$(".progressNow").css("width", "calc(" + per + "% - 20px)");
-	} {% endcomment %}
 </script>
 
 </body>
