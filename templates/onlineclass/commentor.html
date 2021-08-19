@@ -1,87 +1,53 @@
-<style>
-  form {
-    position: absolute;
-    left: 850px;
-    top:100px;
-    width: 150px;
-    height: 70px;
-  }
-#fruits {
-    position: absolute;
-    left: 850px;
-    top:200px;
-    width: 150px;
-    height: 100px;
-  }
-  #bt {
-      padding: 0;
-  border: none;
-  background: none;
-  }
-  video{
-    position: absolute;
-    left: 20px;
-    top:50px;
-    width: 800px;
-    height: 600px;
-  }
-  #butt{
-    position: absolute;
-    left: 20px;
-    top:680px;
-    width: 600px;
-    height: 500px;
-  }
-  #prevSlide{
-    margin-right:10px
-  }
-  #prevPlay{
-    margin-right:10px
-  }
-  #videoPlay{
-    margin-right:10px
-  }
-  #videoStop{
-    margin-right:10px
-  }
-  #nextPlay{
-    margin-right:10px
-  }
-  #nextSlide{
-    margin-right:10px
-  }
-
-</style>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>해설 강의 동영상 재생</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'commentor_style.css' %}">
+
     <!-- Bootstrap cdn 설정 -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
     <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
-    <!--슬라이드 목록 리스트가 생성될 공간-->
-    <ul id='fruits' tabindex="1"></ul>
+    <nav>
+        <h1 title="강의 제목">[VIDEO] {{ doc.title }}</h1>
+        <button title="창 닫기">CLOSE</button>
+    </nav>
 
-    <!--재생 옵션-->
-    <form method="get" action="form-action.html">
-        <label><input type="checkbox" name="option" value="전체 설명 생략"> 전체 설명 생략</label>
-    </form>
+    <section>
+        <video src={{ helper.helper_audio.url }} id="myVideo" width='450' height='360' controls loop preload></video><br/>
+        <class id="butt">
+            <button id="prevSlide" title="이전 슬라이드 버튼">이전 슬라이드</button>
+            <button id="prevPlay" title="6초 전 버튼">6초 전</button>
+            <button id="videoPlay" title="재생 버튼">재생</button>
+            <button id="videoStop" title="일시정지 버튼">일시정지</button>
+            <button id="nextPlay" title="6초 후 버튼">6초 후</button>
+            <button id="nextSlide" title="다음 슬라이드 버튼">다음 슬라이드</button>
+        </class>
+    </section>
 
-    <!-- audio와 video 설정 -->
-    <video src={{ helper.helper_audio.url }} id="myVideo" width='450' height='360' controls loop preload></video>
-    <br />
+    <aside>
+        <h1>강의 영상 내 슬라이드 목록</h1>
+        <h3>슬라이드 번호를 클릭하면 해당 시점으로 이동합니다</h3>
 
-    <class id="butt">
-        <button id="prevSlide">이전 슬라이드</button>
-        <button id="prevPlay">6초 전</button>
-        <button id="videoPlay">재생</button>
-        <button id="videoStop">일시정지</button>
-        <button id="nextPlay">6초 후</button>
-        <button id="nextSlide">다음 슬라이드</button>
-    </class>
+        <!--재생 옵션-->
+        <div class="option_box">
+            <form method="get" action="form-action.html">
+                <span>옵션 : </span>
+                <label><input type="checkbox" name="option" value="전체 설명 생략"> 전체 설명 생략</label>
+            </form>
+        </div>
+
+        <!--슬라이드 목록 리스트가 생성될 공간-->
+        <ol id='fruits' tabindex="1"></ol>
+    </aside>
 
     <script>
     // video 오브젝트를 취득함.

@@ -1,0 +1,131 @@
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+
+nav {
+    width: 100%;
+    background: linear-gradient(to right, #6c5ce7, #81ecec);
+    display: flex;
+}
+
+nav h1 {
+    margin-left: 20px;
+    color: white;
+}
+
+nav button{
+    margin-left: auto;
+    text-align:center;
+    vertical-align: center;
+    width: 100px;
+    height: 35px;
+    margin-right: 15px;
+    margin-top: 15px;
+    background-color: #F0F0F0;
+    color: dimgrey;
+    border-radius: 15px;
+    border: 0;
+    outline: 0;
+    font-size: 10pt;
+}
+
+section {
+    width: 70%;
+    height: 100%;
+    float: left;
+    background-color: #FBFAFE;
+    margin: 0 auto;
+    text-align: center;
+}
+
+section video {
+    width: 800px;
+    height: 600px;
+}
+
+section button {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #79B6EA;
+    font-size: 12pt;
+    font-weight: bolder;
+    border: 0;
+    outline: 0;
+    border-radius: 30px;
+    color: white;
+}
+
+section button:hover{
+    background-color: #7597E9;
+}
+
+section button:active{
+    background-color: #6C5EE7;
+}
+
+aside {
+    width: 30%;
+    height: 100%;
+    float: right;
+    background-color: #F7F7F7;
+}
+
+aside h1 {
+    text-align: center;
+    color: #7266AB;
+    font-size: 20pt;
+    font-weight: bolder;
+}
+
+aside h3 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #4e555b;
+    font-size: 10pt;
+    font-weight: lighter;
+}
+
+.option_box {
+    margin: 0 auto;
+    width: 80%;
+    padding: 10px;
+    padding-left: 20px;
+    background-color: #4e555b;
+    border-radius: 30px;
+    color: white;
+    font-weight: bolder;
+    text-align: left;
+}
+
+aside ol {
+    margin: 0px;
+    padding: 0px;
+}
+
+aside li {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 20px;
+    padding-left: 30px;
+    color: white;
+    background-color: #81EAEC;
+    list-style: none;
+    border-radius: 30px;
+    font-weight: bolder;
+}
+
+aside li:hover{
+    background-color: #7DD4EB;
+}
+
+aside li:active{
+    background-color: #79B6EA;
+}
