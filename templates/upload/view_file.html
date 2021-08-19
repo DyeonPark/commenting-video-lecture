@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{% load static %}
 <html>
 <head>
     <meta charset="UTF-8">
@@ -9,161 +8,89 @@
     <title>Django File Upload</title>
 
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'view_style.css' %}">
+
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
     <style>
-
-        * {
-            font-family: sans-serif;
-        }
-
-        html, body {
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            margin: 0px;
-        }
-
-        form {
-            padding: 25px;
-        }
-
-        input {
-            margin: 10px;
-        }
-
-        .class_box {
-            background-color: white;
-            width: 90%;
-            text-align: left;
-            border-radius: 15px;
-            font-size: 20pt;
-            margin: 0 auto;
-            margin-top: 20px;
-        }
-
-        .class_inner_box {
-            padding: 10px;
-        }
-
-        .navbar{
-            background: linear-gradient(to right, #6c5ce7, #81ecec);
-        }
-
-        .navbar a{
-            color: white;
-            font-size: 20pt;
-            font-weight: bolder;
-        }
-
-        .navbar ul{
-            padding: 0px;
-            margin: 0px;
-            display: flex;
-        }
-
-        .navbar li{
-            list-style:none;
-            padding:0px;
-            padding-left: 15px;
-            margin: 0px;
-        }
-
-        #username_design {
-            font-size: 15pt;
-            font-weight: normal;
-        }
-
-        #logout_design{
-            display:inline-block;
-            text-align:center;
-            vertical-align: center;
-            width: 100px;
-            height: 35px;
-            background-color: #F0F0F0;
-            color: dimgrey;
-            border-radius: 15px;
-            border: 0;
-            outline: 0;
-            font-size: 10pt;
-        }
-
-        .introduce_box {
-            width: 100%;
-            height: 150px;
-            background: rgba(100, 149, 237, 0.6);
-            border: 0;
-            outline: 0;
-        }
-
-        aside {
-            width: 20%;
-            height: 100%;
-            float: left;
-            background-color: #F7F7F7;
-            margin: 0 auto;
-            {#border-right: 1px inset #1b1e21;#}
-        }
-
-        section {
-            width: 80%;
-            height: 100%;
-            float: right;
-            background-color: #FBFAFE;
-        }
-
-        .class_title_box {
-            background: linear-gradient(to right, #6c5ce7, #81ecec);
-            border-top-right-radius: 15px;
-            border-top-left-radius: 15px;
-        }
-
-        .class_title {
-            text-align: left;
-            padding-left: 20px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            color: white;
-            font-weight: bolder;
-        }
-
-        footer {
-            background-color: #F0F0F0;
-            clear:both;
-        }
 
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <a class="navbar-brand" href="{% url 'upload:upload_files' %}">SNOWBOARD</a>
+        <button class="navbar_logo" onclick = "location.href = '{% url 'upload:upload_files' %}' " title="메인 페이지 재로드 버튼">SNOWBOARD</button>
         <ul>
-            <li><a id="username_design" href="">Welcome, {{ user.username }} !</a></li>
-            <li><button id="logout_design" onclick = "location.href = '{% url 'common:login' %}' ">LOGOUT</button></li>
+            <li><button class="username_design" title="마이페이지 버튼">Welcome, {{ user.username }} !</button></li>
+            <li><button class="logout_design" onclick = "location.href = '{% url 'common:login' %}' " title="로그아웃 버튼">LOGOUT</button></li>
         </ul>
     </nav>
 
     <div class="introduce_box">
-
+        <span><i class="fas fa-user-circle fa-5x"></i></span>
+        <div class="introduce_box_info">
+            <div class="introduce_box_classname">UI/UX 설계</div>
+            <div class="introduce_box_profname">임순범 교수님</div>
+        </div>
     </div>
 
     <aside>
-
+        <div class="aside_category">강의실 홈</div>
+            <ul class="first_list">
+                <li>강의정보</li>
+                <ul class="inner_list">
+                    <li>강의계획서</li>
+                    <li>참여자목록</li>
+                </ul>
+                <li>성적/출석관리</li>
+                <ul class="inner_list">
+                    <li>온라인출석부</li>
+                    <li>성적부</li>
+                </ul>
+                <li>수강생 알림</li>
+                <ul class="inner_list">
+                    <li>쪽지 보내기</li>
+                </ul>
+                <li>강좌 관리</li>
+                <ul class="inner_list">
+                    <li>팀원</li>
+                </ul>
+            </ul>
+        <div class="aside_category">학습활동</div>
+            <ul class="second_list">
+                <li><i class="fas fa-save" style="color: #71B5CC"></i> &nbsp; 파일</li>
+                <li><i class="far fa-play-circle" style="color: #8B8884"></i> &nbsp; 콘텐츠메이커</li>
+                <li><i class="fas fa-sticky-note" style="color: #EA665A"></i> &nbsp; 과제</li>
+                <li><i class="fas fa-clipboard" style="color: #F3994E"></i> &nbsp; 게시판</li>
+                <li><i class="fas fa-link" style="color: #679ACD"></i> &nbsp; URL링크</li>
+                <li><i class="fas fa-check-circle" style="color: #C064A9"></i> &nbsp; 퀴즈</li>
+                <li><i class="fas fa-user-friends" style="color: #F5BB47"></i> &nbsp; 토론</li>
+                <li><i class="fas fa-folder" style="color: #F6B65C"></i> &nbsp; 폴더</li>
+                <li><i class="fas fa-pencil-alt" style="color: #F07A7A"></i> &nbsp; 표지</li>
+            </ul>
     </aside>
 
     <section>
         {% for file in files %}
             <div class="class_box">
 
-                <div class="class_title_box">
+                <div class="class_title_box" title="강의제목: {{ file.title }}">
                     <div class="class_title">{{ file.title }}</div>
                 </div>
 
                 <div class="class_inner_box">
-                    <a href="" class="btn btn-primary" target="_blank">강의 동영상 재생</a>
-                    <a href="" class="btn btn-primary" target="_blank">강의 자료 다운로드</a>
-                    <a href="/onlineclass/commentor/{{ file.id }}/" class="btn btn-primary" target="_blank">해설 오디오 파일 재생</a>
-                    <a href="" class="btn btn-primary" target="_blank">강의자료 해설 파일 다운로드</a>
+                    <a href="" target="_blank" title="강의 동영상 재생">
+                        <i class="far fa-play-circle"></i> 강의 동영상 재생
+                    </a>
+                    <a href="/onlineclass/pdf_download/{{ file.id }}/" target="_blank" title="강의 자료 다운로드">
+                        <i class="fas fa-file-pdf"></i> 강의 자료 다운로드
+                    </a>
+                    <a href="/onlineclass/commentor/{{ file.id }}/" target="_blank" title="해설 비디오 파일 재생">
+                        <i class="far fa-play-circle"></i> 해설 비디오 파일 재생
+                    </a>
+                    <a href="" target="_blank" title="강의자료 해설 파일 다운로드">
+                        <i class="fas fa-file-alt"></i> 강의자료 해설 파일 다운로드
+                    </a>
                 </div>
 
             </div>

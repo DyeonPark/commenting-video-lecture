@@ -1,0 +1,186 @@
+* {
+    font-family: sans-serif;
+}
+
+html, body {
+    background-color: #FBFAFE;
+    text-align: center;
+    width: 100%;
+    height: 635px;
+    margin: 0px;
+}
+
+form {
+    padding: 25px;
+}
+
+input {
+    margin: 10px;
+}
+
+table {
+    margin: 0 auto;
+    width: 95%;
+    text-align: center;
+    margin-top: 25px;
+    padding: 25px;
+    font-size: 10pt;
+}
+
+table tr td {
+    padding-top: 15px;
+}
+
+aside {
+    width: 30%;
+    height: 100%;
+    float: left;
+    background-color: #FBFAFE;
+    margin: 0 auto;
+}
+
+.form_box {
+    display: inline-block;
+    width: 80%;
+    height: 80%;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 15px;
+    margin: 0 auto;
+    margin-top: 60px;
+    box-shadow: 5px 5px 10px 5px #ECE8FC;
+}
+
+#form_title {
+    width: 100%;
+    height: 100px;
+    color: white;
+    background-color: #6c5ce7;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: table;
+    text-align: center;
+}
+
+#form_inner_box {
+    margin: 0 auto;
+    width: 100%;
+    text-align: left;
+}
+
+.form_text {
+    font-weight: bolder;
+    font-size: 10pt;
+    color: #6c5ce7;
+    margin-top: 10px;
+}
+
+.text_input {
+    padding: 5px;
+    margin-left: 0px;
+    width: 95%;
+    border-color: #E5E5E5;
+    border-style: dashed;
+    border-radius: 10px;
+}
+
+#submit_bnt {
+    width: 50%;
+    height: 50px;
+    border-radius: 30px;
+    color: white;
+    background-color: #6c5ce7;
+    border: 0;
+    outline: 0;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 30px;
+    box-shadow: 5px 5px 10px 5px #ECE8FC;
+}
+
+aside h1 {
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+}
+
+section {
+    width: 70%;
+    float: right;
+    background-color: #FBFAFE;
+}
+
+section h1 {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    color: #6c5ce7;
+    text-align: left;
+    font-weight: bolder;
+    font-size: 20pt;
+}
+
+.meter {
+    height: 20px;
+    width: 95%;
+    background: #C6C6C6;
+    border-radius: 25px;
+    margin: 10px;
+    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.meter > span {
+    display: block;
+    height: 100%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #6c5ce7;
+    background-image: linear-gradient(to right, #6c5ce7, #81ecec);
+    box-shadow: inset 0 2px 9px  rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+#myProgress {
+    height: 20px;
+    width: 95%;
+    background: #C6C6C6;
+    border-radius: 25px;
+    margin: 10px;
+    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+}
+
+#myBar {
+    display: block;
+    height: 100%;
+    /*width: {{progress_num}}%;*/
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #6c5ce7;
+    background-image: linear-gradient(to right, #6c5ce7, #81ecec);
+    box-shadow: inset 0 2px 9px  rgba(255,255,255,0.3), inset 0 -2px 6px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+#label {
+text-align: center;
+line-height: 30px;
+color: white;
+}
+
+section h3 {
+    margin-top: 10px;
+    color: #474747;
+    text-align: center;
+    font-weight: normal;
+    font-size: 12pt;
+}
+
+footer {
+    background-color: #F0F0F0;
+    clear:both;
+}
