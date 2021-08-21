@@ -52,6 +52,7 @@ def upload_files(request):
                 helper = Helper.objects.create(
                     doc_id=document,
                     helper_audio=path + "mix\\mix.mp3",
+                    helper_txt=path + "txt\\final_file.txt",
                     helper_csv=path + "transform_timeline_result.csv"
                 )
 

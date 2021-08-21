@@ -8,4 +8,5 @@ app_name = "onlineclass"
 urlpatterns = [
     path("commentor/<int:doc_id>/", views.execute_commentor, name="execute_commentor"),
     path("pdf_download/<int:doc_id>/", views.download_pdf, name="download_pdf"),
+    path("txt_download/<int:doc_id>/", views.download_txt, name="download_txt"),
 ]

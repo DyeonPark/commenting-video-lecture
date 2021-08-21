@@ -18,7 +18,7 @@
 
     <nav>
         <h1 title="강의 제목">[VIDEO] {{ doc.title }}</h1>
-        <button title="창 닫기">CLOSE</button>
+        <button title="창 닫기" onclick = "window.close()">CLOSE</button>
     </nav>
 
     <section>
@@ -39,9 +39,14 @@
 
         <!--재생 옵션-->
         <div class="option_box">
+            <div class="option_box_title">동영상 재생속도 조절</div>
             <form method="get" action="form-action.html">
-                <span>옵션 : </span>
-                <label><input type="checkbox" name="option" value="전체 설명 생략"> 전체 설명 생략</label>
+                <label><input type="radio" name="speed_opt" value="1.0" title="1.0배 속도조절 버튼" checked="checked">x1.0</label>
+                <label><input type="radio" name="speed_opt" value="1.2" title="1.2배 속도조절 버튼" >x1.2</label>
+                <label><input type="radio" name="speed_opt" value="1.4" title="1.4배 속도조절 버튼" >x1.4</label>
+                <label><input type="radio" name="speed_opt" value="1.6" title="1.6배 속도조절 버튼" >x1.6</label>
+                <label><input type="radio" name="speed_opt" value="1.8" title="1.8배 속도조절 버튼" >x1.8</label>
+                <label><input type="radio" name="speed_opt" value="2.0" title="2.0배 속도조절 버튼" >x2.0</label>
             </form>
         </div>
 
@@ -114,6 +119,24 @@
       }
     });
 
+    //속도 조절을 위한 radio 버튼 클릭 이벤트
+    $("input:radio[name=speed_opt]").click(function(){
+
+        if($("input:radio[name=speed_opt]:checked").val()=='1.0'){
+            video.playbackRate = 1.0
+        }else if($("input:radio[name=speed_opt]:checked").val()=='1.2'){
+            video.playbackRate = 1.2
+        }else if($("input:radio[name=speed_opt]:checked").val()=='1.4'){
+            video.playbackRate = 1.4
+        }else if($("input:radio[name=speed_opt]:checked").val()=='1.6'){
+            video.playbackRate = 1.6
+        }else if($("input:radio[name=speed_opt]:checked").val()=='1.8'){
+            video.playbackRate = 1.8
+        }else{ // 2.0
+            video.playbackRate = 2.0
+        }
+    });
+
     function getCurTime() {
         alert(vid.currentTime);
     }
@@ -157,6 +180,7 @@
             .appendChild(li);
 
         }
+
       })
 
       $('li').on("click", function() {

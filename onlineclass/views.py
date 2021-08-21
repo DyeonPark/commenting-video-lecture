@@ -18,7 +18,7 @@ def download_pdf(request, doc_id):
     print(set_filename)
 
     response = FileResponse(fs.open(file_path, 'rb'))
-    response['Content-Disposition'] = 'attachment; filename=' + set_filename  # 파일명 지정이 안되는 오류 발생
+    response['Content-Disposition'] = 'attachment; filename=' + set_filename  # !!! 파일명 지정이 안되는 오류 발생 !!!
     return response
 
 
@@ -34,3 +34,17 @@ def execute_commentor(request, doc_id):
     }
 
     return HttpResponse(template.render(context, request))
+
+def download_txt(request, doc_id):
+    doc = Document.objects.get(id=doc_id)
+    help = Helper.objects.get(doc_id=doc_id)
+
+    file_path = help.helper_txt.path
+    fs = FileSystemStorage(file_path)
+
+    set_filename = doc.title + " 강의자료 해설파일.txt"  # 파일명 지정
+    print(set_filename)
+
+    response = FileResponse(fs.open(file_path, 'rb'))
+    response['Content-Disposition'] = 'attachment; filename=' + set_filename  # !!! 파일명 지정이 안되는 오류 발생 !!!
+    return response
