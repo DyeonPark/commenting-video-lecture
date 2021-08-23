@@ -10,6 +10,16 @@ from django.http import FileResponse
 from django.core.files.storage import FileSystemStorage
 
 
+def show_origianl_video(request, doc_id):
+    template = loader.get_template('onlineclass/original_video.html')
+
+    doc = Document.objects.get(id=doc_id)
+    context = {
+        "doc": doc,
+    }
+
+    return HttpResponse(template.render(context, request))
+
 def download_pdf(request, doc_id):
     doc = Document.objects.get(id=doc_id)
 

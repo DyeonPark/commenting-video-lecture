@@ -12,6 +12,7 @@
 
     <!-- Bootstrap cdn 설정 -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>
 <body>
     <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
@@ -22,15 +23,15 @@
     </nav>
 
     <section>
-        <video src={{ helper.helper_video.url }} id="myVideo" width='450' height='360' controls loop preload></video><br/>
-        <class id="butt">
-            <button id="prevSlide" title="이전 슬라이드 버튼">이전 슬라이드</button>
-            <button id="prevPlay" title="6초 전 버튼">6초 전</button>
-            <button id="videoPlay" title="재생 버튼">재생</button>
-            <button id="videoStop" title="일시정지 버튼">일시정지</button>
-            <button id="nextPlay" title="6초 후 버튼">6초 후</button>
-            <button id="nextSlide" title="다음 슬라이드 버튼">다음 슬라이드</button>
-        </class>
+        <video src={{ helper.helper_video.url }} id="myVideo" controls loop preload></video><br/>
+        <div class="butt">
+            <button id="prevSlide" title="이전 슬라이드 버튼">|◀◀ 이전 슬라이드</button>
+            <button id="prevPlay" title="6초 전 버튼"><i class="fas fa-undo"></i> 6초 전</button>
+            <button id="videoPlay" title="재생 버튼">재생 ▶</button>
+            <button id="videoStop" title="일시정지 버튼">일시정지 ||</button>
+            <button id="nextPlay" title="6초 후 버튼">6초 후 <i class="fas fa-redo"></i></button>
+            <button id="nextSlide" title="다음 슬라이드 버튼">다음 슬라이드 ▶▶|</button>
+        </div>
     </section>
 
     <aside>
@@ -39,7 +40,7 @@
 
         <!--재생 옵션-->
         <div class="option_box">
-            <div class="option_box_title">동영상 재생속도 조절</div>
+            <div class="option_box_title">VIDEO SPEED CONTROL OPTIONS</div>
             <form method="get" action="form-action.html">
                 <label><input type="radio" name="speed_opt" value="1.0" title="1.0배 속도조절 버튼" checked="checked">x1.0</label>
                 <label><input type="radio" name="speed_opt" value="1.2" title="1.2배 속도조절 버튼" >x1.2</label>
@@ -171,7 +172,8 @@
           li.setAttribute('onkeypress',"JavaScript:press(this.form)")
 
           // 2-3. li에 text node 추가
-          const textNode = document.createTextNode(B+1+"번 슬라이드");
+          const textNode = document.createTextNode(B+1+"번 슬라이드 : "
+              + Math.round(arr[B]/60) + "분 " + Math.round(arr[B]%60) + "초");
           li.appendChild(textNode);
 
           // 3. 생성된 li를 ol에 추가

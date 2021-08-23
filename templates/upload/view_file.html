@@ -13,9 +13,6 @@
 
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <style>
-
-    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -79,13 +76,13 @@
                 </div>
 
                 <div class="class_inner_box">
-                    <a href="" target="_blank" title="강의 동영상 재생">
+                    <a href="javascript:open_Origianl_Win({{ file.id }})" title="강의 동영상 재생">
                         <i class="far fa-play-circle"></i> 강의 동영상 재생
                     </a>
                     <a href="/onlineclass/pdf_download/{{ file.id }}/" target="_blank" title="강의 자료 다운로드">
                         <i class="fas fa-file-pdf"></i> 강의 자료 다운로드
                     </a>
-                    <a href="/onlineclass/commentor/{{ file.id }}/" target="_blank" title="해설 비디오 파일 재생">
+                    <a href="javascript:open_Cmt_Win({{ file.id }})" title="해설 비디오 파일 재생">
                         <i class="far fa-play-circle"></i> 해설 비디오 파일 재생
                     </a>
                     <a href="/onlineclass/txt_download/{{ file.id }}/" target="_blank" title="강의자료 해설 파일 다운로드">
@@ -97,9 +94,22 @@
         {% endfor %}
     </section>
 
-    <footer>
-        <p>Copyright © 2021 Team Commentor</p>
-    </footer>
+    <script language="javascript" type="text/javascript">
+        function open_Origianl_Win(file_id){
+            window.open(
+                "/onlineclass/original_video/"+file_id+"/",
+                "원본 강의 재생",
+                "left=120, top=5, width=1280, height=750, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=yes"
+            );
+        }
+        function open_Cmt_Win(file_id){
+            window.open(
+                "/onlineclass/commentor/"+file_id+"/",
+                "해설 강의 재생",
+                "left=120, top=25, width=1280, height=700, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=yes"
+            );
+        }
+    </script>
 
 </body>
 </html>

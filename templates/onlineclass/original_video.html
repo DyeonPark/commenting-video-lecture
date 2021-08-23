@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>원본 강의 동영상 재생</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'original_video_style.css' %}">
+
+</head>
+<body>
+
+    <nav>
+        <h1 title="강의 제목">[VIDEO] {{ doc.title }}</h1>
+        <button title="창 닫기" onclick = "window.close()">CLOSE</button>
+    </nav>
+
+    <section>
+        <video src={{ doc.videoFile.url }} id="myVideo" controls loop preload></video>
+    </section>
+
+</body>
+</html>
