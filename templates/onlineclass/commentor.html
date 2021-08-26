@@ -25,13 +25,13 @@
     <section>
         <video src={{ helper.helper_video.url }} id="myVideo" controls loop preload></video><br/>
         <div class="butt">
-            <button id="prevSlide">|◀◀ 이전 슬라이드</button>
+            <button id="prevSlide">|◀◀ 이전 장면</button>
             <button id="prevPlay"><i class="fas fa-undo"></i> 6초 전</button>
             <button id="videoPlay">재생 ▶</button>
-            <button id="now_skip">현재 설명 생략 <i class="fas fa-cut"></i></button>
+            <button id="now_skip">현재 슬라이드 설명 생략 <i class="fas fa-cut"></i></button>
             <button id="videoStop">일시정지 ||</button>
             <button id="nextPlay">6초 후 <i class="fas fa-redo"></i></button>
-            <button id="nextSlide">다음 슬라이드 ▶▶|</button>
+            <button id="nextSlide">다음 장면 ▶▶|</button>
         </div>
     </section>
 
@@ -64,26 +64,60 @@
     var arr = new Array();
     var now_skip_array = new Array();
 
-
+    // 키보드 조작 이벤트
+    window.onkeydown = function()	{
+        if(event.keyCode == 37){ //좌 - 6초 전으로 이동
+            video.currentTime-=6;
+        } else if(event.keyCode == 39){ //우 - 6초 후로 이동
+            video.currentTime+=6;
+        } else if(event.keyCode == 38){ //상 - 이전 장면으로 이동
+            var time_cur = video.currentTime;
+            time_cur *= 1;
+            for(k = 0; k < arr.length-1; k++) {
+                if(arr[k]<= time_cur && time_cur < arr[k+1]){
+                    video.currentTime = arr[k];
+                    break;
+                }
+                if(time_cur > arr[arr.length-1]){
+                    video.currentTime = arr[arr.length-1];
+                    break;
+                }
+            }
+        } else if(event.keyCode == 40){ //하 - 이후 장면으로 이동
+            var time_cur = video.currentTime;
+            time_cur *= 1;
+            for(k = 0; k < arr.length-1; k++) {
+                if(arr[k]<= time_cur && time_cur < arr[k+1]){
+                    video.currentTime = arr[k+1];
+                    console.log(video.currentTime);
+                    break;
+                }
+                if(time_cur > arr[arr.length-1]){
+                    video.currentTime = video.duration;
+                    break;
+                }
+            }
+        }
+    };
 
     //6초 전 클릭
     $("#prevPlay").on("click", function() {
-    video.currentTime-=6;
+        video.currentTime-=6;
     });
 
     //재생 클릭
     $("#videoPlay").on("click", function() {
-    video.play();
+        video.play();
     });
 
     //일시정지 클릭
     $("#videoStop").on("click", function() {
-    video.pause();
+        video.pause();
     });
 
     //6초 후 클릭
     $("#nextPlay").on("click", function() {
-    video.currentTime+=6;
+        video.currentTime+=6;
     });
 
     //이전 슬라이드
