@@ -136,9 +136,14 @@ aside li {
     font-weight: bolder;
 }
 
+aside li:focus{
+    background-color: #7597E9;
+}
+
 aside li:hover{
     background-color: #79B6EA;
 }
+
 
 aside li:active{
     background-color: #7597E9;

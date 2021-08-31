@@ -43,7 +43,7 @@
         <div class="option_box">
             <div class="option_box_title">VIDEO SPEED CONTROL OPTIONS</div>
             <form method="get" action="form-action.html">
-                <label><input type="radio" name="speed_opt" value="1.0" title="1.0배 속도조절 버튼" tabindex="1">x1.0</label>
+                <label><input type="radio" name="speed_opt" value="1.0" title="1.0배 속도조절 버튼" tabindex="1" checked>x1.0</label>
                 <label><input type="radio" name="speed_opt" value="1.2" title="1.2배 속도조절 버튼" tabindex="2">x1.2</label>
                 <label><input type="radio" name="speed_opt" value="1.4" title="1.4배 속도조절 버튼" tabindex="3">x1.4</label>
                 <label><input type="radio" name="speed_opt" value="1.6" title="1.6배 속도조절 버튼" tabindex="4">x1.6</label>
@@ -117,9 +117,11 @@
                 }
         else if(event.keyCode == 32){  // 스페이스바
           if (video.paused) {
+            event.preventDefault();
             video.play();
           }
           else {
+            event.preventDefault();
             video.pause();
             }
 
